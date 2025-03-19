@@ -2,7 +2,12 @@ function linkify(text) {
     const urlRegex = /((https?:\/\/|www\.)[^\s]+)/g;
 
     return text.replace(urlRegex, (url) => {
-        const hyperlink = url.startsWith('http') ? url : `https://${url}`;
+        const hyperlink = url.startsWith('http') 
+    ? url 
+    : url.startsWith('www.') 
+        ? `http://${url}`  // Используем http, если начинается с www
+        : `https://${url}`; // По умолчанию добавляем https
+        
             // === GOOGLE DRIVE SUPPORT ===
             const googleDriveMatch = hyperlink.match(/https?:\/\/drive\.google\.com\/file\/d\/([^/]+)\//);
             if (googleDriveMatch && googleDriveMatch[1]) {
@@ -108,6 +113,17 @@ function linkify(text) {
                         Ваш браузер не поддерживает аудио.
                     </audio>`;
         }
+        
+        // === ПОДДЕРЖКА РАДИОСТРИМОВ ===
+if (/radio|stream|live|aac|mp3/i.test(hyperlink) && !/\.(mp3|wav|ogg|aacp)$/i.test(hyperlink)) {
+    return `<div style="text-align: center; margin-top: 10px;">
+                <audio controls style="width: 100%;">
+                    <source src="${hyperlink}" type="audio/aac">
+                    Ваш браузер не поддерживает этот аудиопоток. 
+                    <a href="${hyperlink}" target="_blank">Открыть ссылку</a>.
+                </audio>
+            </div>`;
+}
 
         // === Обычные ссылки ===
         return `<a href="${hyperlink}" target="_blank" rel="noopener noreferrer">${url}</a>`;
