@@ -101,7 +101,7 @@ function linkify(text) {
         }
 
         // === Аудио файлы ===
-        if (/\.(mp3|wav|ogg|aacp)$/i.test(hyperlink)) {
+        if (/\.(mp3|wav|ogg|aacp|mayakfm_aac_64kbps)$/i.test(hyperlink)) {
             let audioType = hyperlink.endsWith('.aacp') ? 'aac' : hyperlink.split('.').pop();
             return `<audio controls style="width:100%;">
                         <source src="${hyperlink}" type="audio/${audioType}">
