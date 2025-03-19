@@ -114,15 +114,30 @@ function linkify(text) {
                     </audio>`;
         }
         
-        // === ПОДДЕРЖКА РАДИОСТРИМОВ ===
+        // === ПОДДЕРЖКА РАДИОСТРИМОВ (HTTP / HTTPS) ===
 if (/radio|stream|live|aac|mp3/i.test(hyperlink) && !/\.(mp3|wav|ogg|aacp)$/i.test(hyperlink)) {
-    return `<div style="text-align: center; margin-top: 10px;">
-                <audio controls style="width: 100%;">
-                    <source src="${hyperlink}" type="audio/aac">
-                    Ваш браузер не поддерживает этот аудиопоток. 
-                    <a href="${hyperlink}" target="_blank">Открыть ссылку</a>.
-                </audio>
-            </div>`;
+    const isHttp = hyperlink.startsWith('http://');
+    
+    if (isHttp) {
+        return `<div style="text-align: center; margin-top: 10px;">
+                    <audio controls style="width: 100%; opacity: 0.5; pointer-events: none;">
+                        <source src="${hyperlink}" type="audio/aac">
+                        Ваш браузер не поддерживает этот аудиопоток. 
+                    </audio>
+                    <p style="margin-top: 5px;">
+                        <button onclick="openStream('${hyperlink}')" style="background-color: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-size: 16px;">
+                            Открыть поток в новой вкладке
+                        </button>
+                    </p>
+                </div>`;
+    } else {
+        return `<div style="text-align: center; margin-top: 10px;">
+                    <audio controls style="width: 100%;">
+                        <source src="${hyperlink}" type="audio/aac">
+                        Ваш браузер не поддерживает этот аудиопоток.
+                    </audio>
+                </div>`;
+    }
 }
 
         // === Обычные ссылки ===
