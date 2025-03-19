@@ -3,10 +3,10 @@ function linkify(text) {
 
     return text.replace(urlRegex, (url) => {
         const hyperlink = url.startsWith('http') 
-    ? url 
+    ? url.replace(/^http:/, 'https:')  // Авто-переключение на HTTPS
     : url.startsWith('www.') 
-        ? `http://${url}`  // Используем http, если начинается с www
-        : `https://${url}`; // По умолчанию добавляем https
+        ? `http://${url}` 
+        : `https://${url}`;
         
             // === GOOGLE DRIVE SUPPORT ===
             const googleDriveMatch = hyperlink.match(/https?:\/\/drive\.google\.com\/file\/d\/([^/]+)\//);
