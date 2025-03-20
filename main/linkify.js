@@ -120,7 +120,7 @@ if (/radio|stream|live|aac|mp3/i.test(hyperlink) && !/\.(mp3|wav|ogg|aacp)$/i.te
     
     if (isHttp) {
     return `<div style="text-align: center; margin-top: 10px;">
-                <audio class="inactive-audio" data-stream-url="${hyperlink}" controls style="width: 100%; opacity: 0.5; pointer-events: none;">
+                <audio class="inactive-audio" data-stream-url="${hyperlink}" controls onclick="openStream('${hyperlink}')" style="width: 100%; opacity: 0.5; pointer-events: none;">
                     <source src="${hyperlink}" type="audio/aac">
                     Ваш браузер не поддерживает этот аудиопоток.
                 </audio>
