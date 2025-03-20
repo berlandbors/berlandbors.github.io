@@ -2,11 +2,7 @@ function linkify(text) {
     const urlRegex = /((https?:\/\/|www\.)[^\s]+)/g;
 
     return text.replace(urlRegex, (url) => {
-        const hyperlink = url.startsWith('http') 
-    ? url.replace(/^http:/, 'https:')  // Авто-переключение на HTTPS
-    : url.startsWith('www.') 
-        ? `http://${url}` 
-        : `https://${url}`;
+        const hyperlink = url.startsWith('http') ? url : `https://${url}`;
         
             // === GOOGLE DRIVE SUPPORT ===
             const googleDriveMatch = hyperlink.match(/https?:\/\/drive\.google\.com\/file\/d\/([^/]+)\//);
