@@ -120,15 +120,12 @@ if (/radio|stream|live|aac|mp3/i.test(hyperlink) && !/\.(mp3|wav|ogg|aacp)$/i.te
     
     if (isHttp) {
     return `<div style="text-align: center; margin-top: 10px;">
-                <audio class="inactive-audio" data-stream-url="${hyperlink}" controls onclick="openStream('${hyperlink}')" style="width: 100%; opacity: 0.5; pointer-events: none;">
-                    <source src="${hyperlink}" type="audio/aac">
-                    Ваш браузер не поддерживает этот аудиопоток.
-                </audio>
-                <p style="margin-top: 5px;">
-                    <button onclick="openStream('${hyperlink}')" style="background-color: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-size: 16px;">
-                        Открыть поток в новой вкладке
-                    </button>
-                </p>
+                <p style="color: red;">🔴 Этот поток работает только по HTTP и не будет воспроизводиться в браузере.</p>
+                <button onclick="window.open('${hyperlink}', '_blank')" 
+                    style="background-color: #007bff; color: white; border: none; padding: 10px 15px; 
+                           border-radius: 5px; cursor: pointer; font-size: 16px;">
+                    🔊 Открыть поток в новой вкладке
+                </button>
             </div>`;
 } else {
         return `<div style="text-align: center; margin-top: 10px;">
