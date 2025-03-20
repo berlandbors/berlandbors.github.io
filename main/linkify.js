@@ -116,8 +116,8 @@ if (/radio|stream|live|aac|mp3/i.test(hyperlink) && !/\.(mp3|wav|ogg|aacp)$/i.te
     
     if (isHttp) {
     return `<div style="text-align: center; margin-top: 10px;">
-                <p style="color: red;">🔴 Этот поток работает только по HTTP и не будет воспроизводиться в браузере.</p>
-                <button onclick="window.open('${hyperlink}', '_blank')" style="background-color: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-size: 16px;">🔊 Открыть поток в новой вкладке</button>
+                <p style="color: green;">🔴 Я приглашаю вас слушать этот радиопоток в новой вкладке браузера, нажав на кнопку "play"👇.</p>
+                <button onclick="window.open('${hyperlink}', '_blank')" style="background-color: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-size: 16px;">▶️</button>
             </div>`;
 } else {
         return `<div style="text-align: center; margin-top: 10px;">
