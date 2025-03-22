@@ -5,6 +5,7 @@ body {
 }
 
 /* Оглавление (меню содержания) */
+/* Оглавление (меню содержания) */
 #toc-container {
     width: 100%;
     max-width: 300px; /* Ограничиваем ширину */
@@ -13,33 +14,56 @@ body {
     border: 1px solid #ccc;
     padding: 10px;
     background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Добавляем тень */
+    border-radius: 8px; /* Закругленные углы */
 }
 
 #toc-container h2 {
     text-align: center;
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+    color: #333;
 }
 
 #toc ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    font-family: Arial, sans-serif; /* Используем современный шрифт */
 }
 
 #toc li {
-    padding: 5px;
+    padding: 8px;
     border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+#toc li:hover {
+    background-color: #f0f0f0; /* Легкий эффект при наведении */
 }
 
 #toc a {
     text-decoration: none;
     color: #007bff;
     cursor: pointer;
+    display: block; /* Занимает всю ширину li */
 }
 
 #toc a:hover {
     text-decoration: underline;
 }
 
+/* Анимация для плавного появления оглавления */
+#toc-container {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#toc-container.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 /* Стили для статей */
 .post {
