@@ -6,7 +6,8 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Berlandbor. О веб технологиях.</title>
+    <title>Blog Berlandbor. О веб технологиях, и не только...</title>
+    <link rel="manifest" href="manifest.webmanifest">
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -83,6 +84,15 @@
     <script src="main/openAudioStream.js"></script>
     <script src="main/linkify.js"></script>
     <script src="main/CoreTTWP.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/service-worker.js')
+            .then((reg) => console.log('✅ Service Worker зарегистрирован:', reg.scope))
+            .catch((err) => console.error('❌ Ошибка регистрации Service Worker:', err));
+        }
+    </script>
+        
 
     
 
