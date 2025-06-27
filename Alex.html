@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>С Днём Рождения, Алексей!</title>
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(#ffe, #ffb);
+      overflow: hidden;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+
+    .typing-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 100px;
+      padding: 0 10px;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid white;
+      width: 0;
+      opacity: 0;
+      text-shadow: 2px 2px 6px blue,
+                   -2px -2px 6px green,
+                   0 0 12px #fff;
+      animation:
+        fadeIn 1s ease-in forwards,
+        typing 4s steps(30, end) 1s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    .balloon {
+      position: absolute;
+      width: 40px;
+      height: 60px;
+      background: red;
+      border-radius: 50%;
+      animation: floatUp 10s linear infinite;
+      opacity: 0.7;
+    }
+
+    .balloon::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 30px;
+      background: black;
+      left: 50%;
+      top: 60px;
+      transform: translateX(-50%);
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh); }
+      100% { transform: translateY(-100vh); }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    button {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.5em;
+      padding: 15px 30px;
+      border: none;
+      background: #fff;
+      color: #ff3399;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      z-index: 20;
+    }
+
+    button:hover {
+      background: #ff3399;
+      color: #fff;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.6em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="typing-wrapper">
+    <h1>С Днём Рождения, Алексей!</h1>
+  </div>
+
+  <button onclick="launchFireworks()">🎆 Запустить фейерверк</button>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    // 🎈 Шарики
+    for (let i = 0; i < 20; i++) {
+      const balloon = document.createElement('div');
+      balloon.className = 'balloon';
+      balloon.style.left = Math.random() * 100 + 'vw';
+      balloon.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+      balloon.style.animationDuration = 5 + Math.random() * 5 + 's';
+      document.body.appendChild(balloon);
+    }
+
+    // 🎆 Фейерверки
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let fireworks = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function launchFireworks() {
+      for (let i = 0; i < 10; i++) {
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height / 2;
+        let count = 50 + Math.random() * 50;
+        for (let j = 0; j < count; j++) {
+          fireworks.push({
+            x,
+            y,
+            dx: (Math.random() - 0.5) * 5,
+            dy: (Math.random() - 0.5) * 5,
+            alpha: 1,
+            color: `hsl(${Math.random() * 360}, 100%, 50%)`
+          });
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      fireworks.forEach((p, i) => {
+        p.x += p.dx;
+        p.y += p.dy;
+        p.alpha -= 0.01;
+        if (p.alpha <= 0) {
+          fireworks.splice(i, 1);
+        } else {
+          ctx.globalAlpha = p.alpha;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+        }
+      });
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+
+</body>
+</html>
